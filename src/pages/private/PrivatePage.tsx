@@ -1,6 +1,6 @@
 import React from "react";
 import { useAuth } from "../../contexts/AuthContext";
-import { Link } from "react-router-dom";
+
 
 const PrivatePage: React.FC = () => {
   const { isLoggedIn, logout } = useAuth();
@@ -20,7 +20,7 @@ const PrivatePage: React.FC = () => {
       )}
       <hr />
       <div>Admin menüsü</div>
-      <Link to="/admin/university">Üniversite yönetimi</Link>
+    
     </div>
   );
 };

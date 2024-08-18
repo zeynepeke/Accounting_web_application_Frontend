@@ -1,20 +1,19 @@
 import { Routes, Route } from "react-router-dom";
-import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Page404 from "../pages/Page404";
-//
+
 import PrivatePage from "../pages/private/PrivatePage";
 import ProfilePage from "../pages/private/ProfilePage";
 import PrivateRoute from "./PrivateRoute";
 import Welcome from "../pages/Welcome";
 import Register from "../pages/Register";
-//import { UniversityList } from "../pages/private/University/UniversityList";
+
 
 const MainRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Welcome />} />
-      <Route path="/home" element={<Home />} />
+      
       <Route path="/login" element={<Login />} />
     <Route path="/register" element={<Register />} /> Register sayfası
 

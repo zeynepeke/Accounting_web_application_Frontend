@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Form, Button, Container } from "react-bootstrap";
-
+import "./Register.css";
 import { useAuth } from "../contexts/AuthContext";
 
 const UserRegistrationPage: React.FC = () => {
@@ -16,10 +15,7 @@ const UserRegistrationPage: React.FC = () => {
   const { login } = useAuth();
 
   const addButtonClick = () => {
-    if (!termsAccepted) {
-      alert("Kullanım koşullarını kabul etmelisiniz.");
-      return;
-    }
+    
 
     const veri = { firstName, lastName, companytitle, email, password };
 
@@ -47,7 +43,7 @@ const UserRegistrationPage: React.FC = () => {
 
   return (
     <div>
-      <h2>Kayıt Ol</h2>
+      <h2>Sign in</h2>
       <div>First Name :</div>
       <input value={firstName} onChange={(e) => setFirstName(e.currentTarget.value)} />
 
@@ -73,11 +69,11 @@ const UserRegistrationPage: React.FC = () => {
           onChange={(e) => setTermsAccepted(e.target.checked)} 
         />
         <label>
-          Hesabınızı oluşturarak kullanım koşullarını kabul etmiş olursunuz.
+        By creating my account, I accept the terms of use.
         </label>
       </div>
 
-      <button onClick={addButtonClick}>Ekle</button>
+      <button onClick={addButtonClick}>Add</button>
     </div>
   );
 };

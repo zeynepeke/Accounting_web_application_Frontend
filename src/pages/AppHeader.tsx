@@ -5,7 +5,7 @@ import logo from "../assets/images/yerinde-imza-on-muhasebe-cozumleri.png";
 import "./AppHeader.css";
 
 const AppHeader = () => {
-  const { isLoggedIn, firstName, lastName, logout } = useAuth();
+  const { isLoggedIn,  logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -20,26 +20,20 @@ const AppHeader = () => {
       </div>
       <div className="menu-container">
         <Link to="/" className="menu-item">
-          <FaHome /> Anasayfa
+          <FaHome /> Home
         </Link>
         {isLoggedIn && (
           <>
-            <Link to="/private" className="menu-item">
-              <FaUser /> Private
-            </Link>
-            <Link to="/profile" className="menu-item">
-              <FaUser /> Profile
-            </Link>
-            <Link to="/ideas" className="menu-item">
-              <FaUser /> Paylaşımlar
-            </Link>
+            
+            
+            
           </>
         )}
       </div>
       <div className="auth-container">
         {isLoggedIn ? (
           <>
-            <span className="welcome-message">Hoşgeldin {firstName} {lastName}</span>
+            <span className="welcome-message">Hoşgeldin </span>
             <button onClick={handleLogout} className="logout-button">
               <FaSignOutAlt /> Logout
             </button>

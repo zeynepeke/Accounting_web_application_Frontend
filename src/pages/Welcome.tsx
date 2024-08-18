@@ -8,11 +8,11 @@ const Welcome: React.FC = () => {
   return (
     <div className="welcome-container">
       <img src={logo} alt="Logo" className="mb-4" width="200" /> {/* Logo */}
-      <h2>Hoşgeldin</h2>
-      <p>Hoşgeldiniz fakirlerrr, oturum aç veya kayıt ol</p>
+      <h2>Welcome</h2>
+      <p>Welcome, log in or register</p>
       <div className="button-group">
-        <Link to="/login" className="button login-button">Oturum Aç</Link>
-        <Link to="/register" className="button register-button">Yeni Kayıt</Link>
+        <Link to="/login" className="button login-button">Log in</Link>
+        <Link to="/register" className="button register-button">Register</Link>
       </div>
     </div>
   );
