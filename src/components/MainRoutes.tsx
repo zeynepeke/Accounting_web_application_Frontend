@@ -9,7 +9,8 @@ import Welcome from "../pages/Welcome";
 import Register from "../pages/Register";
 
 import Dashboard from "../pages/Dashboard"; // Yeni bileşeni import edin
-import ProductPage from '../pages/ProductPage';
+
+// product sayfası eklenince login ekranında sıkıntı çıkarıyor.
 
 
 const MainRoutes = () => {
@@ -21,8 +22,8 @@ const MainRoutes = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/dashboard" element={<Dashboard />} /> 
-      <Route path="/products" element={<ProductPage />} />
-      <Route path="/" element={<ProductPage />} />
+      
+      
       <Route path="/private" element={<PrivateRoute />}>
         <Route index element={<PrivatePage />} />
       </Route>
