@@ -6,14 +6,14 @@ import MainRoutes from "./components/MainRoutes";
 
 const App: React.FC = () => {
   return (
-    <div className="container">
+   
     <AuthProvider>
       <Router>
         <AppHeader />
         <MainRoutes />
       </Router>
     </AuthProvider>
-    </div>
+
   );
 };
 
