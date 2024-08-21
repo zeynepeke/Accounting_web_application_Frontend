@@ -14,6 +14,7 @@ const ProfilePage = () => {
 
       <div>
         <div>Adın</div>
+        
         <input value={firstName} onChange={(e) => setFirstName(e.currentTarget.value)}/>
       </div>
       <div>

@@ -12,6 +12,7 @@ const PrivatePage: React.FC = () => {
       <h2>Private Page</h2>
       {isLoggedIn ? (
         <div>
+          
           <p>Welcome! You are logged in.</p>
           <button onClick={handleLogout}>Logout</button>
         </div>

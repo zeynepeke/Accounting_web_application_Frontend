@@ -14,6 +14,7 @@ const Dashboard: React.FC = () => {
           <span className="material-symbols-sharp">person_outline</span>
           <h3>Profile</h3>
         </a>
+        
         <a href="#">
           <span className="material-symbols-sharp">receipt_long</span>
           <h3>Invoice</h3>

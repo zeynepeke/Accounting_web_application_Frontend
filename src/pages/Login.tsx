@@ -26,6 +26,7 @@ const Login: React.FC = () => {
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email </Form.Label>
               <Form.Control
+              
                 type="email"
                 placeholder="name@example.com"
                 value={userName}

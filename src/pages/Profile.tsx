@@ -22,7 +22,7 @@ const Profile: React.FC = () => {
             <a href="#">
               <span className="material-symbols-sharp"> sell</span>
               <h3>Revenue</h3>
-            </a>
+            </a> 
             <a href="#">
               <span className="material-symbols-sharp">
                 payments

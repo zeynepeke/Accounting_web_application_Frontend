@@ -13,6 +13,7 @@ const Expensive: React.FC = () => {
             <a href="#" className="active">
               <span className="material-symbols-sharp">person_outline</span>
               <h3>Profile</h3>
+              
             </a>
             <a href="#">
               <span className="material-symbols-sharp">receipt_long</span>

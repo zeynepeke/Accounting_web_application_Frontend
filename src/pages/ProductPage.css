@@ -151,7 +151,7 @@ small {
 .product-page {
   background-color: var(--clr-white);
   display: grid;
-}
+} 
 main {
   padding: 2rem;
   flex-grow: 1;

@@ -5,4 +5,4 @@ export interface Product {
     description?: string; // İsteğe bağlı
     barcode: string;
     stockQuantity:number;
-  }
+  } 

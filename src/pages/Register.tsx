@@ -26,7 +26,7 @@ const UserRegistrationPage: React.FC = () => {
       },
       body: JSON.stringify(veri),
     };
-
+ 
     fetch("http://localhost:5105/api/Users/register", requestOptions)
       .then((response) => {
         if (response.ok) {

@@ -17,7 +17,7 @@ const ProductPage: React.FC = () => {
     // API call to fetch products
     fetchProducts();
   }, []);
-
+  
   const fetchProducts = async () => {
     // Burada bir API çağrısı yapmalısınız
     const response = await fetch('/api/products'); // API URL'nizi ekleyin

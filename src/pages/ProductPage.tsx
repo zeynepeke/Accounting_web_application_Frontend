@@ -47,7 +47,7 @@ const ProductPage: React.FC = () => {
       const updatedProduct = await response.json();
       setProducts(
         products.map((p) => (p.id === updatedProduct.id ? updatedProduct : p))
-      );
+      ); 
     }
     setSelectedProduct(null);
     setFormState({

@@ -24,7 +24,7 @@
 .button-group {
   display: flex;
   justify-content: space-around;
-}
+} 
 
 .button {
   display: inline-block;

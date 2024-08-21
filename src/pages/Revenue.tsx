@@ -18,7 +18,7 @@ const Revenue: React.FC = () => {
               <span className="material-symbols-sharp">receipt_long</span>
               <h3>Invoice</h3>
             </a>
-
+ 
             <a href="#">
               <span className="material-symbols-sharp"> sell</span>
               <h3>Revenue</h3>

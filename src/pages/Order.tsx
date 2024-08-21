@@ -23,6 +23,7 @@ const Order: React.FC = () => {
     status: '',
     amount: ''
   });
+  
   const [editingOrder, setEditingOrder] = useState<Order | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

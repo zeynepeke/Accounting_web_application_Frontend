@@ -14,6 +14,7 @@ const AppHeader = () => {
   };
 
   return (
+    
     <div className="header-container">
       <div className="logo-container">
         <img src={logo} alt="Logo" className="logo" />
