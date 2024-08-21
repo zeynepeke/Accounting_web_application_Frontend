@@ -7,7 +7,7 @@ import ProfilePage from "../pages/private/ProfilePage";
 import PrivateRoute from "./PrivateRoute";
 import Welcome from "../pages/Welcome";
 import Register from "../pages/Register";
-
+import Order from "../pages/Order";
 
 const MainRoutes = () => {
   return (
@@ -23,7 +23,7 @@ const MainRoutes = () => {
       <Route path="/profile" element={<PrivateRoute />}>
         <Route index element={<ProfilePage />} />
       </Route>
-      
+      <Route path="/order" element={<Order />} />
       
       <Route path="*" element={<Page404 />} />
     </Routes>
