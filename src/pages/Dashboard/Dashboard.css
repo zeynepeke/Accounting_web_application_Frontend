@@ -1,0 +1,192 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+:root {
+  --clr-primary: #7380ec;
+  --clr-danger: #ff7782;
+  --clr-success: #41f1b6;
+  --clr-white: #fff;
+  --clr-info-dark: #7d8da1;
+  --clr-info-light: #dce1dceb;
+  --clr-dark: #363949;
+  --clr-warning: #ff4edc;
+  --clr-light: rgba(132, 139, 200, 0.18);
+  --clr-primary-variant: #111e88;
+  --clr-dark-variant: #677483;
+  --clr-color-background: #f6f6f9;
+
+  --card-border-radius: 2rem;
+  --border-radius-1: 0.4rem;
+  --border-radius-2: 0.8rem;
+  --border-radius-3: 1.2rem;
+
+  --card-padding: 1.8rem;
+  --padding-1: 1.2rem;
+  --box-shadow: 0 2rem 3rem var(--clr-light);
+}
+
+.dashboard-container {
+
+  display: flex; /* Flexbox düzenini etkinleştirir */
+  gap: 1.8rem;
+  width: 100%; /* Konteynerin tam genişlikte olmasını sağlar */
+  margin: 0 auto;
+}
+a {
+  color: var(--clr-dark);
+}
+h1 {
+  font-weight: 800;
+  font-size: 1.8rem;
+}
+h2 {
+  font-size: 1.4rem;
+}
+h3 {
+  font-size: 0.87rem;
+}
+h4 {
+  font-size: 0.8rem;
+}
+h5 {
+  font-size: 0.77rem;
+}
+small {
+  font-size: 0.75rem;
+}
+
+.text-muted {
+  color: var(--clr-info-dark);
+}
+p {
+  color: var(--clr-dark-variant);
+}
+b {
+  color: var(--clr-dark);
+}
+
+.primary {
+  color: var(--clr-primary);
+}
+.success {
+  color: var(--clr-success);
+}
+.danger {
+  color: var(--clr-danger);
+}
+.warning {
+  color: var(--clr-warning);
+}
+
+
+.dashboard .insights {
+  display: grid;
+  grid-template-columns: repeat(
+    3,
+    30rem
+  ); /* Set a fixed width for each column */
+  gap: 1.6rem;
+}
+
+.dashboard .insights > div {
+  background-color: var(--clr-white);
+  padding: var(--card-padding);
+  border-radius: var(--card-border-radius);
+  margin-top: 1rem;
+  box-shadow: var(--box-shadow);
+  transition: all 0.3s ease;
+}
+.dashboard .insights > div:hover {
+  box-shadow: none;
+}
+.dashboard .insights > div span {
+  background: coral;
+  padding: 0.5rem;
+  border-radius: 50%;
+  color: var(--clr-white);
+  font-size: 2rem;
+}
+.dashboard .insights > div.expenses span {
+  background: var(--clr-danger);
+}
+.dashboard .insights > div.income span {
+  background: var(--clr-success);
+}
+.dashboard .insights > div .middle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.dashboard .insights > div .middle h1 {
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.dashboard h1 {
+  color: var(--clr-dark);
+}
+.dashboard .insights h1 {
+  color: var(--clr-dark);
+}
+.dashboard .insights h3 {
+  color: var(--clr-dark);
+}
+.dashboard .insights p {
+  color: var(--clr-dark);
+}
+.dashboard .insights .progress {
+  position: relative;
+  height: 68px;
+  width: 68px;
+  border-radius: 50px;
+}
+
+.dashboard .insights .progress .number {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.dashboard .recent_order {
+  /* 3 sütun genişliğini kapsa */
+  margin-top: 2rem;
+}
+.dashboard .recent_order h2 {
+  color: var(--clr-dark);
+}
+.dashboard .recent_order table {
+  background-color: var(--clr-white);
+  border-radius: var(--card-border-radius);
+  padding: var(--card-padding);
+  text-align: center;
+  box-shadow: var(--box-shadow);
+  transition: all 0.3s ease;
+  color: var(--clr-dark);
+  gap: 1.6rem;
+  width: 100%; /* Ensure the divs take up the full width of the column */
+  max-width: 93rem; /* Set a fixed max-width to match the column width */
+}
+
+.dashboard .recent_order table:hover {
+  box-shadow: none;
+}
+.dashboard table tbody tr {
+  height: 3.8rem;
+  border-bottom: 1px solid var(--clr-white);
+  color: var(--clr-dark-variant);
+}
+.dashboard table tbody td {
+  height: 3.8rem;
+  border-bottom: 1px solid var(--clr-white);
+}
+.dashboard table tbody tr:last-child td {
+  border: none;
+}
+.dashboard .recent_order a {
+  text-align: center;
+  display: block;
+  margin: 1rem;
+}

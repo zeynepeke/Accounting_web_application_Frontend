@@ -1,0 +1,66 @@
+/* Header Styles */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  background-color: var(--clr-white);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px; /* Header yüksekliği artırıldı */
+  z-index: 1000;
+}
+
+.logo-container {
+  order: 2; /* Sağ tarafa hizalamak için */
+}
+
+.logo {
+  width: 150px; /* Logonun boyutunu ayarlıyoruz */
+}
+
+.menu-container {
+  display: flex;
+  gap: 15px;
+  order: 1; /* Sol tarafa hizalamak için */
+}
+
+.menu-item {
+  text-decoration: none;
+  color: black;
+  display: flex;
+  align-items: center;
+}
+
+.auth-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  order: 3; /* Sağ tarafa hizalamak için */
+}
+
+.welcome-message {
+  margin-right: 10px;
+}
+
+.logout-button {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  color: black;
+  cursor: pointer;
+}
+
+/* Main Content Styles */
+main {
+  margin-left: 16rem; /* Sidebar genişliğine göre boşluk bırakılır */
+  margin-top: 60px; /* Header'ın yüksekliği kadar üstten boşluk bırakılır */
+  flex-grow: 1; /* Main alanının kalan boşluğu kaplamasını sağlar */
+  background-color: var(--clr-light-gray);
+  padding: 2rem;
+  min-height: calc(100vh - 60px); /* Header yüksekliği kadar azaltılmış height */
+}

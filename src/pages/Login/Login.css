@@ -1,0 +1,58 @@
+
+
+/* Login İçin Kapsayıcı Stil */
+.login {
+  max-width: 500px;
+  margin: 50px auto; /* Header yüksekliği kadar boşluk bırak */
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  position: relative;
+  top: 80px; /* Header'ın altında konumlandırma */
+}
+
+/* Login İçin Sütun Stili */
+.col .login-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Logo Kapsayıcı Stili */
+.logo-container {
+  display: flex;
+  justify-content: center;
+}
+
+/* Form Stilleri */
+form div {
+  margin-bottom: 10px;
+}
+
+form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+form input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+form button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+
+form button:hover {
+  background-color: #0056b3;
+}

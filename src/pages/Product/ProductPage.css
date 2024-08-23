@@ -1,0 +1,226 @@
+/* Container */
+.product-page-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Add Product Section */
+.add-product,
+.add-product-section {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.add-product-section {
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.add-product-section form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.add-product-section form label {
+  font-size: 1rem;
+  color: var(--clr-dark-variant);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.add-product-section form input[type="text"],
+.add-product-section form input[type="number"] {
+  padding: 0.5rem;
+  border: 1px solid var(--clr-info-light);
+  border-radius: var(--border-radius-1);
+  background-color: var(--clr-white);
+  color: var(--clr-dark);
+  font-size: 1rem;
+  width: 200px;
+}
+
+.add-product-section form button {
+  background-color: var(--clr-primary);
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+}
+
+.add-product-section form button:hover {
+  background-color: var(--clr-primary-variant);
+}
+
+.add-product-button {
+  background-color: var(--clr-primary);
+  color: var(--clr-white);
+}
+
+.add-product-button:hover {
+  background-color: var(--clr-primary-variant);
+}
+.save-button {
+  background-color: var(--clr-primary);
+  color: var(--clr-white);
+}
+
+.save-button:hover {
+  background-color: var(--clr-primary-variant);
+}
+/* List Product Section */
+.list-product {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: var(--clr-white);
+  padding: var(--padding-1);
+  border-radius: var(--border-radius-2);
+  box-shadow: var(--box-shadow);
+}
+
+.list-product h3 {
+  font-size: 1rem;
+  margin-top: 1rem;
+  color: var(--clr-dark);
+}
+
+.list-product ul {
+  list-style-type: none;
+  padding: 0;
+  width: 100%;
+}
+
+.list-product li {
+  background-color: var(--clr-white);
+  border: 1px solid var(--clr-info-light);
+  border-radius: var(--border-radius-1);
+  padding: var(--padding-1);
+  margin-bottom: 1rem;
+  box-shadow: var(--box-shadow);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: box-shadow 0.3s ease;
+}
+
+.list-product li:hover {
+  box-shadow: none;
+}
+
+.list-product li h4 {
+  font-size: 1rem;
+  margin: 0 0 0.5rem 0;
+  color: var(--clr-dark-variant);
+}
+
+.list-product li p {
+  font-size: 0.9rem;
+  color: var(--clr-info-dark);
+}
+
+.list-product li button {
+  background-color: var(--clr-danger);
+  color: var(--clr-white);
+  border: none;
+  border-radius: var(--border-radius-1);
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.list-product li button:hover {
+  background-color: darkred;
+}
+
+/* Product Table */
+.product-list-section {
+  flex: 1;
+}
+
+.product-list-section h3 {
+  font-size: 1.4rem;
+  color: var(--clr-dark);
+  margin-bottom: 1rem;
+}
+
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.product-table th,
+.product-table td {
+  border: 1px solid var(--clr-info-light);
+  padding: 0.8rem;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.product-table th {
+  background-color: var(--clr-primary);
+  color: var(--clr-white);
+}
+
+.product-table tr:nth-child(even) {
+  background-color: var(--clr-info-light);
+}
+
+.product-table tr:hover {
+  background-color: var(--clr-light);
+}
+
+/* Buttons */
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem; /* Space between buttons */
+  margin-bottom: 1rem; /* Space below the buttons */
+  width: 100%; /* Full width to accommodate button alignment */
+  margin-top: 1rem;
+}
+.button-container button {
+  width: 90px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: var(--border-radius-2);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.product-table button {
+  padding: 0.3rem 0.6rem;
+  font-size: 0.8rem;
+  border: none;
+  border-radius: var(--border-radius-1);
+  color: var(--clr-white);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+
+.button-group {
+  display: flex;
+  gap: 10px; /* Adjust the gap value as needed for spacing */
+}
+
+.edit-button {
+  background-color: var(--clr-primary);
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.delete-button {
+  background-color: RGB(220, 53, 69);
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}

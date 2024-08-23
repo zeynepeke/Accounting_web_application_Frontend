@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
-import AppHeader from "./pages/AppHeader";
+import AppHeader from "../src/components/AppHeader";
 import MainRoutes from "./components/MainRoutes";
 
 const App: React.FC = () => {
