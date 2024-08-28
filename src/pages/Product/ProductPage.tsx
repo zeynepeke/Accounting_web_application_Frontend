@@ -1,17 +1,10 @@
 import React, { useState, useEffect } from "react";
 import type { Product } from "../types/Product";
+import { fetchProducts, saveProduct, deleteProduct } from "../Services/ProductService";
 import "./ProductPage.css";
+
 const ProductPage: React.FC = () => {
-  const [products, setProducts] = useState<Product[]>([
-    {
-      id: 1,
-      name: "Example Product",
-      price: 10.0,
-      description: "This is an example product.",
-      barcode: "123456789012",
-      stockQuantity: 100,
-    },
-  ]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [formState, setFormState] = useState<Product>({
     id: 0,
@@ -21,63 +14,59 @@ const ProductPage: React.FC = () => {
     barcode: "",
     stockQuantity: 0,
   });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      const response = await fetch("/api/product");
-      const data = await response.json();
-      setProducts(data);
+    const loadProducts = async () => {
+      try {
+        const data = await fetchProducts();
+        setProducts(data);
+      } catch (error) {
+        console.error("Failed to fetch products", error);
+      }
     };
 
-    fetchProducts();
+    loadProducts();
 
     const intervalId = setInterval(() => {
-      fetchProducts();
+      loadProducts();
     }, 5000);
 
     return () => clearInterval(intervalId);
   }, []);
 
   const handleSave = async () => {
-    if (formState.id === 0) {
-      const response = await fetch("/api/product", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formState),
+    try {
+      const savedProduct = await saveProduct(formState);
+      if (formState.id === 0) {
+        setProducts([...products, savedProduct]);
+      } else {
+        setProducts(products.map((p) => (p.id === savedProduct.id ? savedProduct : p)));
+      }
+    } catch (error) {
+      console.error("Save operation failed", error);
+    } finally {
+      setIsModalOpen(false);
+      setSelectedProduct(null);
+      setFormState({
+        id: 0,
+        name: "",
+        price: 0,
+        description: "",
+        barcode: "",
+        stockQuantity: 0,
       });
-      const newProduct = await response.json();
-      setProducts([...products, newProduct]);
-    } else {
-      const response = await fetch(`/api/product/${formState.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formState),
-      });
-      const updatedProduct = await response.json();
-      setProducts(
-        products.map((p) => (p.id === updatedProduct.id ? updatedProduct : p))
-      );
     }
-    setSelectedProduct(null);
-    setFormState({
-      id: 0,
-      name: "",
-      price: 0,
-      description: "",
-      barcode: "",
-      stockQuantity: 0,
-    });
   };
 
   const handleDelete = async (id: number) => {
-    await fetch(`/api/product/${id}`, {
-      method: "DELETE",
-    });
-    setProducts(products.filter((p) => p.id !== id));
+    try {
+      await deleteProduct(id);
+      setProducts(products.filter((p) => p.id !== id));
+    } catch (error) {
+      console.error("Delete operation failed", error);
+    }
   };
 
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -94,89 +83,53 @@ const ProductPage: React.FC = () => {
     handleSave();
   };
 
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const filteredProducts = products.filter(
+    (product) =>
+      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.barcode.includes(searchTerm) ||
+      (product.description || "")
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="product-page-container">
       <section className="add-product-section">
         <h1>Product Manager</h1>
 
-        <form className="Product" onSubmit={handleFormSubmit}>
-          <label>
-            Barcode:
-            <input
-              type="text"
-              name="barcode"
-              placeholder="barkod input"
-              value={formState.barcode}
-              onChange={handleFormChange}
-            />
-          </label>
-          <label>
-            Product Name:
-            <input
-              type="text"
-              name="name"
-              placeholder="product input"
-              value={formState.name}
-              onChange={handleFormChange}
-            />
-          </label>
-          <label>
-            Price:
-            <input
-              type="number"
-              name="price"
-              placeholder="price input"
-              value={formState.price}
-              onChange={handleFormChange}
-            />
-          </label>
-          <label>
-            Description:
-            <input
-              type="text"
-              name="description"
-              placeholder="description input"
-              value={formState.description}
-              onChange={handleFormChange}
-            />
-          </label>
-          <label>
-            Stock Quantity:
-            <input
-              type="number"
-              name="stockQuantity"
-              placeholder="stock quantity input"
-              value={formState.stockQuantity}
-              onChange={handleFormChange}
-            />
-          </label>
-          <div className="button-container">
-            <button
-              type="button"
-              className="add-product-button"
-              onClick={() => {
-                setSelectedProduct(null);
-                setFormState({
-                  id: 0,
-                  name: "",
-                  price: 0,
-                  description: "",
-                  barcode: "",
-                  stockQuantity: 0,
-                });
-              }}
-            >
-              Add Product
-            </button>
-            <button type="submit" className="save-button">
-              Save
-            </button>
-          </div>
-        </form>
+        <button
+          type="button"
+          className="add-product-button"
+          onClick={() => {
+            setSelectedProduct(null);
+            setFormState({
+              id: 0,
+              name: "",
+              price: 0,
+              description: "",
+              barcode: "",
+              stockQuantity: 0,
+            });
+            setIsModalOpen(true);
+          }}
+        >
+          Add Product
+        </button>
       </section>
 
       <section className="product-list-section">
         <h3>Product List</h3>
+        <input
+          type="text"
+          placeholder="Search products..."
+          value={searchTerm}
+          onChange={handleSearchChange}
+          className="search-input"
+        />
         <table className="product-table">
           <thead>
             <tr>
@@ -189,39 +142,110 @@ const ProductPage: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-  {products.map((product) => (
-    <tr key={product.id}>
-      <td>{product.barcode}</td>
-      <td>{product.name}</td>
-      <td>${product.price.toFixed(2)}</td>
-      <td>{product.description}</td>
-      <td>{product.stockQuantity}</td>
-      <td>
-        <div className="button-group">
-          <button
-            className="edit-button"
-            onClick={() => {
-              setSelectedProduct(product);
-              setFormState(product);
-            }}
-          >
-            Edit
-          </button>
-          <button
-            className="delete-button"
-            onClick={() => handleDelete(product.id)}
-          >
-            Delete
-          </button>
-        </div>
-      </td>
-    </tr>
-  ))}
-  
-</tbody>
-
+            {filteredProducts.map((product) => (
+              <tr key={product.id}>
+                <td>{product.barcode}</td>
+                <td>{product.name}</td>
+                <td>${product.price.toFixed(2)}</td>
+                <td>{product.description}</td>
+                <td>{product.stockQuantity}</td>
+                <td>
+                  <div className="button-group">
+                    <button
+                      className="edit-button"
+                      onClick={() => {
+                        setSelectedProduct(product);
+                        setFormState(product);
+                        setIsModalOpen(true);
+                      }}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="delete-button"
+                      onClick={() => handleDelete(product.id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       </section>
+
+      {isModalOpen && (
+        <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <span
+              className="material-symbols-sharp close-button"
+              onClick={() => setIsModalOpen(false)}
+            >
+              close
+            </span>
+            <div className="Product">
+              <form className="Product" onSubmit={handleFormSubmit}>
+                <label>
+                  Barcode:
+                  <input
+                    type="text"
+                    name="barcode"
+                    placeholder="barkod input"
+                    value={formState.barcode}
+                    onChange={handleFormChange}
+                  />
+                </label>
+                <label>
+                  Product Name:
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="product input"
+                    value={formState.name}
+                    onChange={handleFormChange}
+                  />
+                </label>
+                <label>
+                  Price:
+                  <input
+                    type="number"
+                    name="price"
+                    placeholder="price input"
+                    value={formState.price}
+                    onChange={handleFormChange}
+                  />
+                </label>
+                <label>
+                  Description:
+                  <input
+                    type="text"
+                    name="description"
+                    placeholder="description input"
+                    value={formState.description}
+                    onChange={handleFormChange}
+                  />
+                </label>
+                <label>
+                  Stock Quantity:
+                  <input
+                    type="number"
+                    name="stockQuantity"
+                    placeholder="stock quantity input"
+                    value={formState.stockQuantity}
+                    onChange={handleFormChange}
+                  />
+                </label>
+                <div className="button-container">
+                  <button type="submit" className="save-button">
+                    Save
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,1 +1,106 @@
- 
+
+
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  background-color: var(--clr-white);
+  box-shadow: var(--box-shadow);
+  border-radius: var(--card-border-radius);
+  width: 90%;
+  max-width: 50rem;
+  margin: 0 auto;
+
+  justify-content: flex-start; /* Sol hizalamak için */
+  margin: 20px; /* Dış boşlukları düzenlemek için */
+}
+
+.profile {
+  width: 100%;
+}
+
+.profile h1 {
+  font-size: 1.8rem;
+  color: var(--clr-dark);
+  margin-bottom: 1.5rem;
+}
+
+.profile-field {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.profile-field label {
+  font-weight: 500;
+  color: var(--clr-dark);
+}
+
+.profile-field span {
+  color: var(--clr-dark-variant);
+}
+
+.profile-field input {
+  width: calc(100% - 150px);
+  padding: 0.5rem;
+  border: 1px solid var(--clr-info-dark);
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+  color: var(--clr-dark);
+}
+
+.button-container {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  color: var(--clr-white);
+  transition: background-color 0.3s;
+}
+
+button.save-changes {
+  background-color: var(--clr-primary);
+}
+
+button.save-changes:hover {
+  background-color: var(--clr-primary-variant);
+}
+
+button.cancel {
+  background-color: var(--clr-info-dark);
+}
+
+button.cancel:hover {
+  background-color: var(--clr-dark-variant);
+}
+
+button.update-profile {
+  background-color: var(--clr-success);
+  width: 100%;
+}
+
+button.update-profile:hover {
+  background-color: #3ed4a0;
+}
+
+.delete-section {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+button.delete-profile {
+  background-color: var(--clr-danger);
+}
+
+button.delete-profile:hover {
+  background-color: #e03c41;
+}

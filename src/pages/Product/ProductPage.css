@@ -1,8 +1,82 @@
-/* Container */
-.product-page-container {
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* Ensures the overlay is above most elements */
+ 
+}
+
+
+
+/* Modal Content */
+.modal-overlay > .modal-content {
+  background-color: white; /* Solid, opaque background */
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  max-width: 20vw;
+  max-height: 50vh;
+  position: relative;
+  z-index: 1001; /* Ensures modal content is above the overlay */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for depth */
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  opacity: 1; /* Ensure full opacity */
+}
+.modal-overlay .label {
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem; /* Yazı boyutu */
+  margin-bottom: 10px; /* Alanlar arası boşluk */
+  background-color: #000000; /* Arka plan rengi */
+  padding: 10px; /* İç boşluk */
+  border-radius: 4px; /* Köşe yuvarlaklığı */
+}
+
+/* Close Button */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Form Input */
+.product-container input[type="text"],
+.product-container input[type="number"] {
+  width: calc(100% - 20px); /* Genişlik ayarı */
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 10px; /* Alanlar arasındaki boşluk */
+}
+
+/* Save Button */
+.save-button {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.save-button:hover {
+  background-color: #0056b3;
+}
+
+/* Button Container */
+.button-container {
+  margin-top: 20px;
 }
 
 /* Add Product Section */
@@ -19,56 +93,60 @@
 }
 
 .add-product-section form {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
   gap: 1rem;
 }
 
 .add-product-section form label {
-  font-size: 1rem;
-  color: var(--clr-dark-variant);
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+  grid-column: 1;
 }
 
 .add-product-section form input[type="text"],
 .add-product-section form input[type="number"] {
-  padding: 0.5rem;
+  grid-column: 2;
+  padding: 0.75rem;
   border: 1px solid var(--clr-info-light);
   border-radius: var(--border-radius-1);
   background-color: var(--clr-white);
   color: var(--clr-dark);
   font-size: 1rem;
-  width: 200px;
+  width: 100%;
 }
 
-.add-product-section form button {
-  background-color: var(--clr-primary);
-  padding: 0.4rem 0.8rem;
-  font-size: 0.9rem;
+/* Buttons */
+.button-container {
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  margin-top: 1rem;
 }
 
-.add-product-section form button:hover {
-  background-color: var(--clr-primary-variant);
-}
-
-.add-product-button {
-  background-color: var(--clr-primary);
-  color: var(--clr-white);
-}
-
-.add-product-button:hover {
-  background-color: var(--clr-primary-variant);
-}
+.add-product-button,
 .save-button {
   background-color: var(--clr-primary);
   color: var(--clr-white);
+  font-size: 1rem;
+  padding: 0.5rem 0.75rem;
+  border: none;
+  border-radius: var(--border-radius-1);
+  cursor: pointer;
+  min-width: 80px;
+  max-width: 130px;
 }
 
+.add-product-button:hover,
 .save-button:hover {
   background-color: var(--clr-primary-variant);
 }
+
+/* Position buttons next to Stock Quantity */
+.stock-quantity-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 /* List Product Section */
 .list-product {
   display: flex;
@@ -174,39 +252,10 @@
   background-color: var(--clr-light);
 }
 
-/* Buttons */
-.button-container {
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.5rem; /* Space between buttons */
-  margin-bottom: 1rem; /* Space below the buttons */
-  width: 100%; /* Full width to accommodate button alignment */
-  margin-top: 1rem;
-}
-.button-container button {
-  width: 90px;
-  padding: 0.4rem 0.8rem;
-  font-size: 0.9rem;
-  border: none;
-  border-radius: var(--border-radius-2);
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.product-table button {
-  padding: 0.3rem 0.6rem;
-  font-size: 0.8rem;
-  border: none;
-  border-radius: var(--border-radius-1);
-  color: var(--clr-white);
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-
+/* Button Styles */
 .button-group {
   display: flex;
-  gap: 10px; /* Adjust the gap value as needed for spacing */
+  gap: 10px;
 }
 
 .edit-button {
@@ -223,4 +272,18 @@
   border: none;
   padding: 5px 10px;
   cursor: pointer;
+}
+.search-input {
+  max-width:  190px; /* Eni kısaltmak için genişliği ayarlayın */
+  padding: 8px 12px;
+  border-radius: 12px; /* Kenarları yuvarlatmak için */
+  border: 1px solid #ccc; /* Kenarlık rengi */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Arka plana gölge eklemek için */
+  outline: none; /* Focus durumunda varsayılan mavi kenarlığı kaldırır */
+  transition: box-shadow 0.3s ease; /* Gölgelerin yumuşak geçişi için */
+}
+
+.search-input:focus {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Focus durumunda gölgeyi artırır */
+  border-color: #007bff; /* Focus durumunda kenarlık rengini değiştirmek için */
 }
