@@ -5,9 +5,8 @@ import ApplicationContainer from "./ApplicationContainer";
 
 
 const PrivateRoute = () => {
-  // kirmizi div auth fonksiyonu 
-  //const { isLoggedIn } = useAuth(); UNUTMA login için burayı sil 
-  const isLoggedIn =true
+  const { isLoggedIn } = useAuth(); 
+ 
   //return isLoggedIn ? <Route  element={props.element} /> : <Navigate to="/login" />;
   return isLoggedIn ? 
   

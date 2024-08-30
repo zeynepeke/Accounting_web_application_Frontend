@@ -9,10 +9,9 @@ interface AuthContextType {
   logout: () => void;
 }
 
-type loginResponseType = {
+type LoginResponseType = {
   firstName: string;
   lastName: string;
-  
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -24,39 +23,36 @@ export const useAuth = () => {
   }
   return context;
 };
+
 export const AuthProvider: React.FC<any> = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  
 
-  // Implement your login logic here, e.g., API call
   const login = (email: string, password: string, afterCall: VoidFunction) => {
-    const veri = { email, password };
-
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(veri),
+      body: JSON.stringify({ email, password }),
     };
 
     fetch("http://localhost:5105/api/Users/login", requestOptions)
-      .then((response) => response.json())
-      .then((json) => {
-        //
-        const veri: loginResponseType = json;
-        //console.log("fetch işlemi sonrasında alınan veri");
-        //console.log(json);
-        setFirstName(veri.firstName);
-        setLastName(veri.lastName);
-       
-        setIsLoggedIn(true);
-        afterCall();
-      });
+    .then((response) => response.json())
+    .then((json) => {
+      setFirstName(json.firstName);  // Sunucudan gelen firstName'yi kullan
+      setLastName(json.lastName);    // Sunucudan gelen lastName'yi kullan
+      setIsLoggedIn(true);
+      afterCall();
+    })
+    .catch((error) => {
+      console.error("Login error:", error);
+    });
+  
+  
   };
 
   const logout = () => {
-    // Implement your logout logic here
+    // Çıkış işlemi sonrası temizleme
     setFirstName("");
     setLastName("");
     setIsLoggedIn(false);
