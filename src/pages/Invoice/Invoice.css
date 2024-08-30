@@ -1,1 +1,152 @@
+/* Google Fonts Import */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
+:root {
+  --clr-primary: #333;
+  --clr-secondary: #fff;
+  --clr-accent: #4CAF50;
+  --clr-light: #f9f9f9;
+  --clr-dark: #555;
+  --clr-border: #ddd;
+  --font-family: 'Poppins', sans-serif;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--clr-light);
+  margin: 0;
+  padding: 0;
+}
+
+.invoice-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.search-add-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  flex: 4;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid var(--clr-border);
+  border-radius: 4px;
+}
+
+.add-btn {
+  flex: 1;
+  padding: 8px 16px;
+  background-color: var(--clr-accent);
+  color: var(--clr-secondary);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 10px;
+  font-size: 14px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease-in-out;
+}
+
+.split-view {
+  flex-direction: row;
+}
+
+.invoice-list-container {
+  flex: 3;
+  overflow-x: auto;
+}
+
+.invoice-list {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.invoice-list th,
+.invoice-list td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--clr-border);
+}
+
+.invoice-list th {
+  background-color: var(--clr-primary);
+  color: var(--clr-secondary);
+}
+
+.invoice-list td {
+  position: relative;
+}
+
+.invoice-list td .actions {
+  display: flex; /* Flex düzenini etkinleştir */
+  justify-content: flex-start; /* Butonları solda hizala */
+  gap: 8px; /* Butonlar arasında boşluk bırak */
+  align-items: center; /* Butonları dikey olarak ortala */
+  white-space: nowrap; /* Tek satırda kalmasını sağla */
+}
+
+.actions button {
+  padding: 6px 12px;
+  font-size: 12px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  display: inline-block; /* Inline ve block düzenini birlikte kullan */
+}
+
+.update-btn {
+  background-color: var(--clr-accent);
+  color: var(--clr-secondary);
+}
+
+.delete-btn {
+  background-color: #e74c3c;
+  color: var(--clr-secondary);
+}
+
+.invoice-form-container {
+  flex: 2;
+  margin-left: 20px;
+  padding: 20px;
+  background-color: var(--clr-light);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.invoice-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.invoice-form label {
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.invoice-form input,
+.invoice-form select {
+  padding: 10px;
+  margin-bottom: 16px;
+  border: 1px solid var(--clr-border);
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.add-btn {
+  align-self: flex-end;
+  padding: 10px 20px;
+  background-color: var(--clr-accent);
+  color: var(--clr-secondary);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}

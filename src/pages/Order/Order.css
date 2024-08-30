@@ -1,148 +1,151 @@
-/* OrderPage.css */
-
-/* Google Fonts Import */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+/* Order.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
 :root {
-  --clr-primary: #7380ec;
-  --clr-danger: #ff7782;
-  --clr-success: #41f1b6;
-  --clr-white: #fff;
-  --clr-info-dark: #7d8da1;
-  --clr-info-light: #dce1dceb;
-  --clr-dark: #363949;
-  --clr-warning: #ff4edc;
-  --clr-light: rgba(132, 139, 200, 0.18);
-  --clr-primary-variant: #111e88;
-  --clr-dark-variant: #677483;
-  --clr-color-background: #f6f6f9;
-
-  --card-border-radius: 2rem;
-  --border-radius-1: 0.4rem;
-  --border-radius-2: 0.8rem;
-  --border-radius-3: 1.2rem;
-
-  --card-padding: 1.8rem;
-  
-  --padding-1: 1.2rem;
-  --box-shadow: 0 2rem 3rem var(--clr-light);
+  --clr-primary: #333;
+  --clr-secondary: #fff;
+  --clr-accent: #4CAF50;
+  --clr-light: #f9f9f9;
+  --clr-dark: #555;
+  --clr-border: #ddd;
+  --font-family: 'Poppins', sans-serif;
 }
 
-
-
-.material-symbols-sharp {
-  font-size: 1.6rem;
-  margin-right: 1rem;
+body {
+  font-family: var(--font-family);
+  background-color: var(--clr-light);
+  margin: 0;
+  padding: 0;
 }
 
-.main-content {
-  flex: 1;
-  padding: 2rem;
-  background-color: var(--clr-white);
-  overflow-y: auto; /* İçeriğin yüksekliği aşması durumunda kaydırma ekler */
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
+.order-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-.order-header {
+.search-add-container {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 20px;
 }
 
-.order-header h1 {
-  margin: 0;
-  font-size: 1.8rem;
-  font-weight: 700;
+.search-input {
+  flex: 4;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid var(--clr-border);
+  border-radius: 4px;
 }
 
-/* Add Order Button */
-.add-order-button {
-  background-color: #007bff; /* Varsayılan arka plan rengi */
-  color: white; /* Metin rengi */
-  border: none; /* Kenarlık yok */
-  padding: 10px 20px; /* İç boşluk */
-  border-radius: 5px; /* Köşe yuvarlama */
-  cursor: pointer; /* İmleci tıklanabilir yapar */
-  transition: background-color 0.3s; /* Geçiş efekti */
-}
-
-.add-order-button:hover {
-  background-color: #0056b3; /* Hover durumunda arka plan rengi */
-}
-
-.add-order-button:active {
-  background-color: #004494; /* Butona tıklanırken arka plan rengi */
-}
-
-.order-form {
-  margin-bottom: 1.5rem;
-  background-color: var(--clr-white);
-  padding: 1.5rem;
-  border-radius: var(--border-radius-2);
-  box-shadow: var(--box-shadow);
-}
-
-.order-form label {
-  display: block;
-  margin-bottom: 0.8rem;
-  font-weight: 500;
-}
-
-.order-form input {
-  width: 100%;
-  padding: 0.8rem;
-  border: 1px solid #ccc;
-  border-radius: var(--border-radius-1);
-  margin-bottom: 1rem;
-}
-
-.order-form button {
-  padding: 0.8rem 1.2rem;
-  background-color: var(--clr-success);
-  color: var(--clr-white);
+.add-btn {
+  flex: 1;
+  padding: 8px 16px;
+  background-color: var(--clr-accent);
+  color: var(--clr-secondary);
   border: none;
-  border-radius: var(--border-radius-1);
+  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  margin-left: 10px;
+  font-size: 14px;
 }
 
-.order-form button:hover {
-  background-color: var(--clr-success);
+.content {
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease-in-out;
+}
+
+.split-view {
+  flex-direction: row;
+}
+
+.order-list-container {
+  flex: 3;
+  overflow-x: auto;
 }
 
 .order-list {
   width: 100%;
   border-collapse: collapse;
-  background-color: var(--clr-white);
-  box-shadow: var(--box-shadow);
 }
 
-.order-list th, .order-list td {
-  border: 1px solid #ddd;
-  padding: 0.8rem;
+.order-list th,
+.order-list td {
+  padding: 12px;
   text-align: left;
+  border-bottom: 1px solid var(--clr-border);
 }
 
 .order-list th {
-  background-color: var(--clr-info-light);
+  background-color: var(--clr-primary);
+  color: var(--clr-secondary);
 }
 
-/* Footer Add Button */
-.footer {
+.order-list td {
+  position: relative;
+}
+
+.order-list td .actions {
   display: flex;
-  justify-content: center;
+  flex-direction: column; /* Arrange buttons vertically */
+  gap: 10px; /* Space between buttons */
   align-items: center;
-  padding: 1rem;
-  background-color: var(--clr-white);
-  box-shadow: var(--box-shadow);
-  position: sticky;
-  bottom: 0;
-  width: 100%;
 }
 
-.footer .add-order-button {
-  margin: 0;
+.actions button {
+  padding: 6px 12px;
+  font-size: 12px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  display: block; /* Ensure buttons stack vertically */
+}
+
+.update-btn {
+  background-color: var(--clr-accent);
+  color: var(--clr-secondary);
+}
+
+.delete-btn {
+  background-color: #e74c3c;
+  color: var(--clr-secondary);
+}
+
+.order-form-container {
+  flex: 2;
+  margin-left: 20px;
+  padding: 20px;
+  background-color: var(--clr-light);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.order-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.order-form label {
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.order-form input,
+.order-form select {
+  padding: 10px;
+  margin-bottom: 16px;
+  border: 1px solid var(--clr-border);
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.add-btn {
+  align-self: flex-end;
+  padding: 10px 20px;
+  background-color: var(--clr-accent);
+  color: var(--clr-secondary);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
