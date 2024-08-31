@@ -6,17 +6,21 @@ import logo from "../../assets/images/yerinde-imza-on-muhasebe-cozumleri.png"; /
 import "./Login.css";
 
 const Login: React.FC = () => {
-  const { login } = useAuth();
-  const [userName, setUserName] = useState("");
+
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { login, userId } = useAuth();  // userId'yi kullanıma alıyoruz
+
 
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    login(userName, password, () => {
+    login(email, password, () => {
       console.log("Redirecting to /dashboard");
-      navigate("/dashboard")}
-    );
+      console.log("Giriş yapan kullanıcı ID'si:", userId); // userId'yi burada alabilirsiniz
+      console.log("Giriş yapan kullanıcı adı: ",email)
+      navigate("/dashboard");
+    });
   };
 
   return (
@@ -33,8 +37,8 @@ const Login: React.FC = () => {
               <Form.Control
                 type="email"
                 placeholder="name@example.com"
-                value={userName}
-                onChange={(e) => setUserName(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="form-input"
                 required
               />

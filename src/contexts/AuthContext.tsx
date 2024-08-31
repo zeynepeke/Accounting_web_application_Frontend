@@ -1,33 +1,31 @@
 import React, { createContext, useState, useContext } from "react";
+import { API_BASE_URL } from "../pages/Services/config";
 
 interface AuthContextType {
   isLoggedIn: boolean;
-  firstName: string;
-  lastName: string;
-  
+  Name: string;
+  Surname: string;
+  userId: number | null;
+
   login: (email: string, password: string, afterCall: VoidFunction) => void;
   logout: () => void;
 }
-
-type LoginResponseType = {
-  firstName: string;
-  lastName: string;
-};
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider");
+    throw new Error("useAuth, AuthProvider içinde kullanılmalıdır.");
   }
   return context;
 };
 
 export const AuthProvider: React.FC<any> = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [Name, setName] = useState("");
+  const [Surname, setSurname] = useState("");
+  const [userId, setUserId] = useState<number | null>(null);
 
   const login = (email: string, password: string, afterCall: VoidFunction) => {
     const requestOptions = {
@@ -36,30 +34,32 @@ export const AuthProvider: React.FC<any> = ({ children }) => {
       body: JSON.stringify({ email, password }),
     };
 
-    fetch("http://localhost:5105/api/Users/login", requestOptions)
-    .then((response) => response.json())
-    .then((json) => {
-      setFirstName(json.firstName);  // Sunucudan gelen firstName'yi kullan
-      setLastName(json.lastName);    // Sunucudan gelen lastName'yi kullan
-      setIsLoggedIn(true);
-      afterCall();
-    })
-    .catch((error) => {
-      console.error("Login error:", error);
-    });
-  
-  
+    fetch(`${API_BASE_URL}/Users/login`, requestOptions)
+      .then((response) => response.json())
+      .then((json) => {
+        console.log(JSON.stringify(json, null, 2));
+        console.log("Giriş yanıtı:", json);  // Yanıtı konsola yazdırın
+        setName(json.name || "");         // Yanıttaki 'name' alanını kullanın
+        setSurname(json.surname || "");       // Yanıttaki 'surname' alanını kullanın
+        setUserId(json.userId || null);        // Yanıttaki 'userId' alanını kullanın
+        console.log("UserID : ",json.userId )
+        setIsLoggedIn(true);
+        afterCall();
+      })
+      .catch((error) => {
+        console.error("Giriş hatası:", error);
+      });
   };
 
   const logout = () => {
-    // Çıkış işlemi sonrası temizleme
-    setFirstName("");
-    setLastName("");
+    setName("");
+    setSurname("");
+    setUserId(null);
     setIsLoggedIn(false);
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, firstName, lastName, login, logout }}>
+    <AuthContext.Provider value={{ isLoggedIn, Name, Surname, userId, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { fetchUserProfile, updateUserProfile, deleteUserProfile } from '../Services/ProfileService';
+import { useAuth } from '../../contexts/AuthContext'; // Import the useAuth hook
 import './Profile.css';
 
 const Profile: React.FC = () => {
+  const { userId } = useAuth(); // Get userId from AuthContext
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [username, setUsername] = useState('');
@@ -15,49 +17,61 @@ const Profile: React.FC = () => {
   const [deletePassword, setDeletePassword] = useState('');
 
   useEffect(() => {
-    const loadProfile = async () => {
-      try {
-        const data = await fetchUserProfile();
-        setFirstName(data.firstName);
-        setLastName(data.lastName);
-        setUsername(data.username);
-        setEmail(data.email);
-        setBalance(data.balance);
-        setUpdateDate(new Date(data.updatedAt));
-        setCreationDate(new Date(data.createdAt));
-      } catch (error) {
-        console.error('Error fetching profile:', error);
-      }
-    };
-
-    loadProfile();
-  }, []);
+    if (userId !== null) {
+      const loadProfile = async () => {
+        try {
+          const data = await fetchUserProfile(userId);
+          console.log(data); // Gelen veriyi kontrol edin
+          setFirstName(data.name || '');
+          setLastName(data.surname || '');
+          setUsername(data.username || '');
+          setEmail(data.email || '');
+          setBalance(data.balance || 0);
+          setUpdateDate(data.updatedAt ? new Date(data.updatedAt) : null);
+          setCreationDate(data.createdAt ? new Date(data.createdAt) : null);
+        } catch (error) {
+          console.error('Error fetching profile:', error);
+        }
+      };
+  
+      loadProfile();
+    }
+  }, [userId]);
+  
 
   const handleUpdate = async () => {
+    if (userId === null) {
+      alert('User ID is missing.');
+      return;
+    }
+  
     const updatedProfile = {
-      firstName,
-      lastName,
+      name: firstName,
+      surname: lastName,
       username,
       email,
       password,
       updatedAt: new Date().toISOString(),
     };
-
+  
     try {
-      const data = await updateUserProfile(updatedProfile);
-      setFirstName(data.firstName);
-      setLastName(data.lastName);
-      setUsername(data.username);
-      setEmail(data.email);
-      setBalance(data.balance);
-      setUpdateDate(new Date(data.updatedAt));
+      const updatedUser = await updateUserProfile(userId, updatedProfile);
       alert('Profile updated successfully!');
+      // Güncellenen kullanıcı bilgilerini al ve duruma göre güncelle
+      if (updatedUser) {
+        setFirstName(updatedUser.name);
+        setLastName(updatedUser.surname);
+        setUsername(updatedUser.username);
+        setEmail(updatedUser.email);
+      }
       setIsEditing(false);
     } catch (error) {
       console.error('Error updating profile:', error);
       alert('Error updating profile: ' + (error as Error).message);
     }
   };
+  
+  
 
   const handleDeleteProfile = async () => {
     if (!deletePassword) {
@@ -65,8 +79,13 @@ const Profile: React.FC = () => {
       return;
     }
 
+    if (userId === null) {
+      alert('User ID is missing.');
+      return;
+    }
+
     try {
-      await deleteUserProfile(deletePassword);
+      await deleteUserProfile(userId, deletePassword); // Pass userId and password to the API call
       alert('Profile deleted successfully!');
       window.location.href = '/'; // Redirect to the homepage
     } catch (error) {
