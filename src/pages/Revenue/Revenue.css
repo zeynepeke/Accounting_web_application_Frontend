@@ -1,1 +1,97 @@
- 
+.revenue-page {
+  padding: 20px;
+}
+
+.search-add-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  padding: 8px;
+  width: 300px;
+}
+
+.add-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.add-btn:hover {
+  background-color: #218838;
+}
+
+.content.split-view {
+  display: flex;
+}
+
+.revenue-list-container {
+  flex: 1;
+}
+
+.revenue-list {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.revenue-list th, .revenue-list td {
+  padding: 12px;
+  border: 1px solid #ddd;
+}
+
+.actions button {
+  margin-right: 10px;
+}
+
+.update-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+}
+
+.update-btn:hover {
+  background-color: #0056b3;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+}
+
+.delete-btn:hover {
+  background-color: #c82333;
+}
+
+.revenue-form-container {
+  margin-left: 20px;
+}
+
+.revenue-form label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.revenue-form input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 12px;
+}
+
+.save-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.save-btn:hover {
+  background-color: #0056b3;
+}
