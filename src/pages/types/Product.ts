@@ -1,8 +1,8 @@
 export interface Product {
-    id: number;
+  productId: number;
     name: string;
     price: number;
     description?: string; // İsteğe bağlı
-    barcode: string;
+    barcode: number;
     stockQuantity:number;
   } 

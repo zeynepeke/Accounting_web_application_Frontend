@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from "react";
 import type { Product } from "../types/Product";
-import { fetchProducts, saveProduct, deleteProduct } from "../Services/ProductService";
+import {
+  fetchProducts,
+  saveProduct,
+  deleteProduct,
+} from "../Services/ProductService";
 import "./ProductPage.css";
 
 const ProductPage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [formState, setFormState] = useState<Product>({
-    id: 0,
+    productId: 0,
     name: "",
     price: 0,
     description: "",
-    barcode: "",
+    barcode: 0,
     stockQuantity: 0,
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -21,6 +25,7 @@ const ProductPage: React.FC = () => {
     const loadProducts = async () => {
       try {
         const data = await fetchProducts();
+        console.log(data); // Burada gelen veriyi kontrol edin
         setProducts(data);
       } catch (error) {
         console.error("Failed to fetch products", error);
@@ -38,23 +43,36 @@ const ProductPage: React.FC = () => {
 
   const handleSave = async () => {
     try {
-      const savedProduct = await saveProduct(formState);
-      if (formState.id === 0) {
+      if (formState.productId === 0) {
+        // Yeni ürün oluştur
+        const savedProduct = await saveProduct(formState);
         setProducts([...products, savedProduct]);
       } else {
-        setProducts(products.map((p) => (p.id === savedProduct.id ? savedProduct : p)));
+        // Var olan ürünü güncelle
+        const updatedProduct = await saveProduct(formState);
+        setProducts(
+          products.map((p) =>
+            p.productId === updatedProduct.productId ? updatedProduct : p
+          )
+        );
       }
     } catch (error) {
-      console.error("Save operation failed", error);
+      if (error instanceof Error) {
+        console.error("Save operation failed", error.message);
+      
+      } else {
+        console.error("Save operation failed", error);
+        
+      }
     } finally {
       setIsModalOpen(false);
       setSelectedProduct(null);
       setFormState({
-        id: 0,
+        productId: 0,
         name: "",
         price: 0,
         description: "",
-        barcode: "",
+        barcode: 0,
         stockQuantity: 0,
       });
     }
@@ -62,8 +80,10 @@ const ProductPage: React.FC = () => {
 
   const handleDelete = async (id: number) => {
     try {
+      console.log("Silme işlemi için seçilen ürün ID'si:", id); // ID'yi kontrol edin
       await deleteProduct(id);
-      setProducts(products.filter((p) => p.id !== id));
+      setProducts(products.filter((p) => p.productId !== id));
+      console.log("Silme işlemi başarılı:", id);
     } catch (error) {
       console.error("Delete operation failed", error);
     }
@@ -74,9 +94,12 @@ const ProductPage: React.FC = () => {
     setFormState({
       ...formState,
       [name]:
-        name === "price" || name === "stockQuantity" ? Number(value) : value,
+        name === "price" || name === "stockQuantity" || name === "barcode"
+          ? Number(value) // Sayıya dönüştür
+          : value,
     });
   };
+  
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -87,14 +110,23 @@ const ProductPage: React.FC = () => {
     setSearchTerm(e.target.value);
   };
 
-  const filteredProducts = products.filter(
-    (product) =>
-      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.barcode.includes(searchTerm) ||
-      (product.description || "")
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase())
-  );
+  const filteredProducts = products.filter((product) => {
+    const name = product.name || "";
+    const barcode = product.barcode.toString(); // Sayıyı string'e dönüştür
+    const description = product.description || "";
+  
+    // searchTerm'in başlangıçta aranan değeri içerip içermediğini kontrol edin
+    return (
+      name.toLowerCase().startsWith(searchTerm.toLowerCase()) ||
+      barcode.toLowerCase().startsWith(searchTerm.toLowerCase()) ||
+      description.toLowerCase().startsWith(searchTerm.toLowerCase())
+    );
+  });
+  
+  
+  
+  
+  
 
   return (
     <div className="product-page-container">
@@ -107,11 +139,11 @@ const ProductPage: React.FC = () => {
           onClick={() => {
             setSelectedProduct(null);
             setFormState({
-              id: 0,
+              productId: 0,
               name: "",
               price: 0,
               description: "",
-              barcode: "",
+              barcode: 0,
               stockQuantity: 0,
             });
             setIsModalOpen(true);
@@ -143,10 +175,10 @@ const ProductPage: React.FC = () => {
           </thead>
           <tbody>
             {filteredProducts.map((product) => (
-              <tr key={product.id}>
+              <tr key={product.productId}>
                 <td>{product.barcode}</td>
                 <td>{product.name}</td>
-                <td>${product.price.toFixed(2)}</td>
+                <td>{product.price.toFixed(2)}$</td>
                 <td>{product.description}</td>
                 <td>{product.stockQuantity}</td>
                 <td>
@@ -163,7 +195,7 @@ const ProductPage: React.FC = () => {
                     </button>
                     <button
                       className="delete-button"
-                      onClick={() => handleDelete(product.id)}
+                      onClick={() => handleDelete(product.productId)}
                     >
                       Delete
                     </button>
